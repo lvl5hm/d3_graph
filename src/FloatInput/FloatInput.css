@@ -1,0 +1,21 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.floatInputWrapper:not(:last-of-type) {
+    margin-right: 20px;
+}
+
+.floatInputWrapper label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.floatInputWrapper input {
+    border: 1px solid #75715E;
+    border-radius: 2px;
+    padding: 5px;
+    width: 50px;
+}

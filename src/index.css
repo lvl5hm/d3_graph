@@ -1,0 +1,84 @@
+body, input {
+    background-color: #272822;
+    
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font: 14px Tahoma;
+    color: white;
+}
+
+html, body, #react-root {
+    height: 100%;
+}
+
+#react-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line {
+    fill: none;
+    stroke: #66D9EF;
+    stroke-width: 3px;
+}
+
+.yAxis > .tick:first-of-type {
+    visibility: hidden;
+}
+
+.axis .domain,
+.axis .tick line {
+    stroke: #E69F66;
+    stroke-width: 1.5px;
+}
+
+.axis text {
+    stroke: white;
+    fill: white;
+}
+
+.drag {
+    transition: 0.5s;
+    opacity: 0;
+    cursor: ew-resize;
+    stroke: #FD971F;
+    stroke-width: 6px;
+}
+
+svg:hover .drag {
+    opacity: 0.5;
+}
+
+.drag:hover {
+    opacity: 1 !important;
+}
+
+.tooltip {
+    width: 10px;
+    height: 10px;
+    fill: #66D9EF;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+text.tooltip {
+    stroke: white;
+}
+
+svg:hover .tooltip {
+    opacity: 1;
+}
+
+
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
