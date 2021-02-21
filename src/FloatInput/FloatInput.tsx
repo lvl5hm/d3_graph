@@ -21,7 +21,14 @@ export const FloatInput: React.FC<FloatInputProps> = ({ value: propsValue, onBlu
             placeholder="std" 
             value={value} 
             onChange={e => setValue(e.target.value)}
-            onBlur={() => onBlur(parseFloat(value))}
+            onBlur={() => {
+                const parsedValue = parseFloat(value);
+                if (isNaN(parsedValue)) {
+                    setValue(propsValue.toFixed(3));
+                } else {
+                    onBlur(parsedValue);
+                }
+            }}
         />
     </div>
 };

@@ -1,0 +1,42 @@
+.line {
+    fill: none;
+    stroke: #66D9EF;
+    stroke-width: 3px;
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.anchor {
+    fill: #FD971F;
+    stroke: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+}
+
+.overlay:hover .anchor {
+    opacity: 0.5;
+}
+
+.overlay .anchor:hover,
+.overlay .anchor:active {
+    opacity: 1;
+}
+
+.tick line {
+    color: #777;
+}
+
+.tooltip {
+    fill: white;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.hint {
+    fill: #999;
+}
