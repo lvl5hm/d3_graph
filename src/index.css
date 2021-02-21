@@ -12,7 +12,7 @@ body, input {
     color: white;
 }
 
-html, body, #react-root {
+html, body {
     height: 100%;
 }
 
@@ -39,8 +39,10 @@ html, body, #react-root {
 }
 
 .axis text {
-    stroke: white;
-    fill: white;
+}
+
+.xAxis {
+    cursor: ew-resize;
 }
 
 .drag {
@@ -51,12 +53,16 @@ html, body, #react-root {
     stroke-width: 6px;
 }
 
-svg:hover .drag {
-    opacity: 0.5;
+.drag.mean {
+    stroke-width: 30px;
 }
 
-.drag:hover {
-    opacity: 1 !important;
+svg:hover .drag {
+    opacity: 0.2;
+}
+
+svg .drag:hover {
+    opacity: 0.7;
 }
 
 .tooltip {
@@ -68,7 +74,6 @@ svg:hover .drag {
 }
 
 text.tooltip {
-    stroke: white;
 }
 
 svg:hover .tooltip {

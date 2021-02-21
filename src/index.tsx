@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 import { FloatInput } from './FloatInput/FloatInput';
 import './index.css'
 import { chordTranspose } from 'd3';
+import { bellCurve } from './Test';
 
 const { sqrt, PI: pi, E: e } = Math;
 
@@ -22,8 +23,8 @@ const Chart = () => {
 
     const WIDTH = 900;
     const HEIGHT = 500;
-    const MARGIN = 60;
-    const PADDING = 30;
+    const MARGIN = 80;
+    const PADDING = 40;
 
 
     const ref = useRef<SVGSVGElement|null>(null);
@@ -66,6 +67,15 @@ const Chart = () => {
             
         p.xAxis = d3.axisBottom(p.x);
         p.yAxis = d3.axisLeft(p.y);
+
+        const handleMeanDrag = d3.drag()
+            .on('drag', (event) => {
+                setMean(mean => mean - p.x.invert(event.x));
+            });
+
+        p.dragMean = p.plot.append('line')
+            .attr('class', 'drag mean')
+            .call(handleMeanDrag);
         
         p.plot.append('g')
             .attr('class', 'xAxis axis')
@@ -83,15 +93,6 @@ const Chart = () => {
         p.dragStd = p.plot.append('line')
             .attr('class', 'drag std')
             .call(handleStdDrag);
-
-        const handleMeanDrag = d3.drag()
-            .on('drag', (event) => {
-                setMean(mean => mean - p.x.invert(event.x));
-            });
-
-        p.dragMean = p.plot.append('line')
-            .attr('class', 'drag mean')
-            .call(handleMeanDrag);
 
         p.line = p.plot.append('path')
             .attr('class', 'line');
@@ -116,7 +117,6 @@ const Chart = () => {
             .call(p.xAxis);
         p.plot.select('.yAxis')
             .call(p.yAxis)
-            .attr('transform', `translate(${p.x(0)}, 0)`);
     }, [zoom, mean]);
 
     useEffect(() => {
@@ -126,10 +126,10 @@ const Chart = () => {
         p.line.attr('d', line);
         
         p.dragMean
-            .attr('x1', p.x(0))
-            .attr('y1', p.y(0) + 6)
-            .attr('x2', p.x(0))
-            .attr('y2', p.y(0.5*zoom));
+            .attr('x1', p.x(p.x.domain()[0]) - 10)
+            .attr('y1', p.y(0) + 12)
+            .attr('x2', p.x(p.x.domain()[1]) + 10)
+            .attr('y2', p.y(0) + 12);
         
         p.dragStd
             .attr('x1', p.x(std + mean))
@@ -187,7 +187,30 @@ const Chart = () => {
 
 
 const App = () => {
-    return <div><Chart /></div>
+    const setConstants = useRef((mean: number, std: number) => {});
+
+    useEffect(() => {
+        const { setBellCurveConstants } = bellCurve();
+        setConstants.current = setBellCurveConstants;
+    }, []);
+
+
+
+
+    return <div></div>
 }
 
 render(<App />, document.querySelector('#react-root'));
+
+// TODO:
+// scroll the x axis to change the mean, y axis always on the left
+// move the tooltip when dragging the std
+// black background for tooltip
+// add types for everything, factor <svg> with d3 into it's own component
+
+// NICE TO HAVE
+// show other deviations moving when dragging the std
+
+// VERY NICE TO HAVE
+// free movement along the plot
+// free axis resizing
